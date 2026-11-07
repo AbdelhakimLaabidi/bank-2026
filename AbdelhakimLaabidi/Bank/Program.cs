@@ -2,24 +2,21 @@
 
 Bank bank = new Bank("Banque Laabidi");
 
-Person owner = new Person("Abdelhakim", "Laabidi", new DateTime(2000, 1, 15));
+Person abdel = new Person("Abdelhakim", "Laabidi", new DateTime(2000, 1, 15));
+Person sarah = new Person("Sarah", "Dupont", new DateTime(1998, 6, 3));
 
-CurrentAccount account1 = new CurrentAccount("BE01-0001", owner, 500);
-CurrentAccount account2 = new CurrentAccount("BE01-0002", owner);
+CurrentAccount account1 = new CurrentAccount("BE01-0001", abdel, 500);
+CurrentAccount account2 = new CurrentAccount("BE01-0002", abdel);
+CurrentAccount account3 = new CurrentAccount("BE01-0003", sarah);
 
 bank.AddAccount(account1);
 bank.AddAccount(account2);
-Console.WriteLine($"{bank.Name} : {bank.Accounts.Count} comptes");
+bank.AddAccount(account3);
 
-bank.DeleteAccount("BE01-0002");
-Console.WriteLine($"Après suppression : {bank.Accounts.Count} compte");
+account1.Deposit(1000);
+account2.Deposit(250);
+account3.Deposit(4000);
 
-try
-{
-    bank.AddAccount(account1);
-}
-catch (InvalidOperationException ex)
-{
-    Console.WriteLine($"Erreur : {ex.Message}");
-}
-
+Console.WriteLine($"Solde BE01-0001 : {bank.GetBalance("BE01-0001")} €");
+Console.WriteLine($"Total d'Abdelhakim : {bank.GetTotalBalance(abdel)} €");
+Console.WriteLine($"Total de Sarah : {bank.GetTotalBalance(sarah)} €");
