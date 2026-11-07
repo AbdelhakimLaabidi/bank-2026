@@ -3,20 +3,28 @@
 Bank bank = new Bank("Banque Laabidi");
 
 Person abdel = new Person("Abdelhakim", "Laabidi", new DateTime(2000, 1, 15));
-Person sarah = new Person("Sarah", "Dupont", new DateTime(1998, 6, 3));
 
-CurrentAccount account1 = new CurrentAccount("BE01-0001", abdel, 500);
-CurrentAccount account2 = new CurrentAccount("BE01-0002", abdel);
-CurrentAccount account3 = new CurrentAccount("BE01-0003", sarah);
+CurrentAccount current = new CurrentAccount("BE01-0001", abdel, 500);
+SavingsAccount savings = new SavingsAccount("BE02-0001", abdel);
 
-bank.AddAccount(account1);
-bank.AddAccount(account2);
-bank.AddAccount(account3);
+bank.AddAccount(current);
+bank.AddAccount(savings);
 
-account1.Deposit(1000);
-account2.Deposit(250);
-account3.Deposit(4000);
+current.Deposit(1000);
+savings.Deposit(2000);
 
-Console.WriteLine($"Solde BE01-0001 : {bank.GetBalance("BE01-0001")} €");
+current.Withdraw(1200);
+savings.Withdraw(300);
+
+Console.WriteLine($"Compte courant : {current.Balance} €");
+Console.WriteLine($"Épargne : {savings.Balance} € (dernier retrait le {savings.DateLastWithdraw:dd/MM/yyyy})");
 Console.WriteLine($"Total d'Abdelhakim : {bank.GetTotalBalance(abdel)} €");
-Console.WriteLine($"Total de Sarah : {bank.GetTotalBalance(sarah)} €");
+
+try
+{
+    savings.Withdraw(5000);
+}
+catch (InvalidOperationException ex)
+{
+    Console.WriteLine($"Erreur : {ex.Message}");
+}

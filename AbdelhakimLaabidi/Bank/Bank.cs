@@ -3,15 +3,15 @@ namespace BankApp
     public class Bank
     {
         public string Name { get; set; }
-        public Dictionary<string, CurrentAccount> Accounts { get; }
+        public Dictionary<string, Account> Accounts { get; }
 
         public Bank(string name)
         {
             Name = name;
-            Accounts = new Dictionary<string, CurrentAccount>();
+            Accounts = new Dictionary<string, Account>();
         }
 
-        public void AddAccount(CurrentAccount account)
+        public void AddAccount(Account account)
         {
             if (Accounts.ContainsKey(account.Number))
             {
@@ -33,17 +33,17 @@ namespace BankApp
         {
             if (!Accounts.ContainsKey(number))
             {
-                 throw new KeyNotFoundException($"Le compte {number} n'existe pas.");
+                throw new KeyNotFoundException($"Le compte {number} n'existe pas.");
             }
 
             return Accounts[number].Balance;
         }
-        
+
         public double GetTotalBalance(Person owner)
         {
             double total = 0;
 
-            foreach (CurrentAccount account in Accounts.Values)
+            foreach (Account account in Accounts.Values)
             {
                 if (account.Owner == owner)
                 {
