@@ -19,5 +19,15 @@ namespace BankApp
             base.Withdraw(amount);
             DateLastWithdraw = DateTime.Now;
         }
+
+        protected override double CalculInterets()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override double CalculInterets()
+        {
+          return Balance * 0.045;
+        }
     }
 }

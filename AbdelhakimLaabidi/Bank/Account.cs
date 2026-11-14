@@ -1,6 +1,6 @@
 namespace BankApp
 {
-    public class Account
+    public abstract class Account
     {
         public string Number { get; set; }
         public double Balance { get; private set; }
@@ -21,8 +21,9 @@ namespace BankApp
             }
 
             Balance += amount;
+            
         }
-
+        
         public virtual void Withdraw(double amount)
         {
             if (amount <= 0)
@@ -32,5 +33,8 @@ namespace BankApp
 
             Balance -= amount;
         }
+
+        protected abstract double CalculInterets();
+        
     }
 }
